@@ -8,16 +8,12 @@ def handleClient(clientSocket, addr):
 
         while True:
         
-            randomNum = random.randint(0, 11)
             msg = clientSocket.recv(1024).decode()
             if not msg:
                 print("null message object received")
                 break
 
             msg = msg.upper()
-
-            if randomNum < 4:
-                continue
 
             clientSocket.send(msg.encode())
 

@@ -58,7 +58,7 @@ try:
 
         exit = "yes"
 
-        if ans.lower() == 'yes':
+        if exit.lower() == 'yes':
             break
         else:
             pings = int(input("Number of pings to send: "))
