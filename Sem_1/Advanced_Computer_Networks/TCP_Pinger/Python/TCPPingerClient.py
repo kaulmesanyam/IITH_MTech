@@ -38,8 +38,8 @@ try:
                 except socket.timeout:
                     print(f'Ping {seq_no} has timed out -- re-transmitting same packet again')
                     lost_packets += 1
-                    client.sendall(message.encode())  # Resend the ping message
                     total_packets += 1
+                    timestamp = time.time()
 
 
         if rtt:
