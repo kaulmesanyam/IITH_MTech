@@ -1,4 +1,5 @@
 import random
+import time
 from socket import *
 
 # Create a TCP socket
@@ -18,26 +19,31 @@ try:
     print(f"Connected to client at {addr}")
 
     while True:
-        # Generate a random number between 0 and 11
-        randomNum = random.randint(0, 11)
-
+        
         # Receive a message from the client and decode it
         msg = clientSocket.recv(1024).decode()
-
+        print(f"Message Received- {msg}")
         # Check if the received message is null
         if not msg:
             print("null message object received")
             break
 
-        # Convert the message to uppercase
-        msg = msg.upper()
+        while True:
+            # Generate a random number between 0 and 11
+            randomNum = random.randint(0, 11)
+            print(f'random number - {randomNum}')       
 
-        # Simulate packet loss based on random number
-        if randomNum < 4:
-            continue
-
-        # Send the modified message back to the client
-        clientSocket.send(msg.encode())
+            # Simulate packet loss based on random number
+            if randomNum > 4:
+                # Convert the message to uppercase
+                msg = msg.upper()
+                # Send the modified message back to the client
+                clientSocket.send(msg.encode())
+                print("Response sent back to client")
+                break 
+            else: 
+                print('Response dropped')
+                time.sleep(2)
 
 except Exception as e:
     print(f"Error: {e}")
