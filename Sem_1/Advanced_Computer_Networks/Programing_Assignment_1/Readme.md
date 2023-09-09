@@ -8,7 +8,7 @@ This is a simple client-server implementation for sending ping messages over TCP
 - [Features](#features)
     - [Part 1: UDP Pinger](#part-1-udp-pinger)
     - [Part 2: TCP Pinger](#part-2-tcp-pinger)
-- [Requirements/Execution](#requirements)
+- [Requirements](#requirements)
 
 ## Introduction
 
@@ -38,11 +38,29 @@ This application consists of two parts:
 - TCPPingerModifiedServer.py is the same server code but without the packet drop simulation code snippet
 - TCPPingerCOncurrentServer.py is the TCP server which can handle multiple clients simultaniously
 
-## Requirements/Execution
+## Requirements
 
 - Python 3.x
 - For simulating packet loss at NIC, you can use the following Bash command:
+    
+    ```bash
+    sudo tc qdisc add dev eth0 root netem loss 33%
+    ```
+- To change the loss percentage value applied at NIC, you can use the following Bash command:
+    
+    ```bash
+    sudo tc qdisc change dev eth0 root netem loss 33%
+    ```
+- You can see the current drop simulation profile applied on your NIC by using the following Bash command:
 
-```bash
-sudo tc qdisc change dev eth0 root netem loss 33%
+  ```bash
+  sudo tc qdisc show dev eth0
+  ```
+- To remove the packet loss simulation. use the following Bash command:
+
+  ```bash
+  sudo tc qdisc del dev eth0 root netem
+  ```
+  
+  
 
