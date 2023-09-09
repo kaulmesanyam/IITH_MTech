@@ -7,6 +7,7 @@ from socket import *
 serverSocket = socket(AF_INET, SOCK_DGRAM)
 # Assign IP address and port number to socket
 serverSocket.bind(('', 12000))
+print("Server is ready!")
 while True:
     # Generate a random number between 0 to 11 (both included)
     rand = random.randint(0, 11)
@@ -16,6 +17,8 @@ while True:
     message = message.upper()
     # If rand is less is than 4, we consider the packet lost and do not respond
     if rand < 4:
+        print(f'response dropped because random number - {rand}')
         continue
     # Otherwise, the server responds
     serverSocket.sendto(message, address)
+    print('Response sent to client')
